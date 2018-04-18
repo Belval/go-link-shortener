@@ -1,0 +1,6 @@
+{
+    "DOMAIN": "[YOUR_DOMAIN]",
+    "URL_LENGTH" : 5,
+    "PORT" : "8080",
+    "DATABASE_PATH" : "[ABSOLUTE_PATH_FOR_DB]"
+}
