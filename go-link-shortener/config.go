@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"log"
 	"os"
 )
 
@@ -17,10 +18,10 @@ type Config struct {
 	DatabasePath string `json:"DATABASE_PATH"`
 }
 
-func loadConfig() error {
-	confFile, err := os.Open("config.json")
+func loadConfig(configPath string) error {
+	confFile, err := os.Open(configPath)
 	if err != nil {
-		return err
+		log.Fatal(err)
 	}
 	jsonParser := json.NewDecoder(confFile)
 	jsonParser.Decode(&config)
