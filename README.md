@@ -17,6 +17,14 @@ If you want to run it as a service, `install_or_update.sh` will set up everythin
 2. cd go-link-shortener
 3. sudo ./install_or_update.sh
 
+## UI
+
+There is a minimalist UI to quickly minify links served at `/ui`
+
+![ui](ui.png "ui")
+
+You can test the demo at [https://belv.al/ui](https://belv.al/ui)
+
 ## Benchmarks
 
 On a single vCore machine with 1GB of RAM and behind a Nginx proxy using SSL (so a real scenario).
