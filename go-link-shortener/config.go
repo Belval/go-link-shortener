@@ -16,6 +16,7 @@ type Config struct {
 	URLLength    int    `json:"URL_LENGTH"`
 	Port         string `json:"PORT"`
 	DatabasePath string `json:"DATABASE_PATH"`
+	HTMLPath     string `json:"HTML_PATH"`
 }
 
 func loadConfig(configPath string) error {

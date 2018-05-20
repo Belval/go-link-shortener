@@ -51,7 +51,7 @@ Using the Apache benchmarking tool:
     75%    131
     100%   178 (longest request)
 
-I ran test without Nginx and timings were below 70ms so it's quite fast.
+I ran tests without Nginx and timings were below 70ms so it's quite fast.
 
 ## Requirements
 

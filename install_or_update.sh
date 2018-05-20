@@ -17,6 +17,7 @@ fi
 
 echo "Creating database folder..."
 mkdir /var/go-link-shortener/
+cp -r ./go-link-shortener/html/ /var/go-link-shortener/html/
 
 echo "Stopping service if running..."
 systemctl stop go-link-shortener

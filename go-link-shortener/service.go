@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 
@@ -11,20 +12,27 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+type Empty struct{}
+
 func linkHandler(w http.ResponseWriter, r *http.Request) {
-	url := r.URL.Path[1 : config.URLLength+1]
-	database, _ := sql.Open("sqlite3", config.DatabasePath)
-	rows, _ := database.Query("SELECT original_url FROM urls WHERE shortened_url = ? LIMIT 1", url)
-	var originalURL string
-	rows.Next()
-	if err := rows.Scan(&originalURL); err != nil {
-		defer rows.Close()
-		defer database.Close()
+	fmt.Println(len(r.URL.Path))
+	if len(r.URL.Path) <= 1 {
 		http.Error(w, "", 404)
 	} else {
-		defer rows.Close()
-		defer database.Close()
-		http.Redirect(w, r, originalURL, 301)
+		url := r.URL.Path[1 : config.URLLength+1]
+		database, _ := sql.Open("sqlite3", config.DatabasePath)
+		rows, _ := database.Query("SELECT original_url FROM urls WHERE shortened_url = ? LIMIT 1", url)
+		var originalURL string
+		rows.Next()
+		if err := rows.Scan(&originalURL); err != nil {
+			defer rows.Close()
+			defer database.Close()
+			http.Error(w, "", 404)
+		} else {
+			defer rows.Close()
+			defer database.Close()
+			http.Redirect(w, r, originalURL, 301)
+		}
 	}
 }
 
@@ -46,8 +54,15 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(config.Domain + linkUID))
 }
 
+func uiHandler(w http.ResponseWriter, r *http.Request) {
+	p := &Empty{}
+	t, _ := template.ParseFiles(config.HTMLPath)
+	t.Execute(w, p)
+}
+
 func startWebServer() {
 	http.HandleFunc("/", linkHandler)
 	http.HandleFunc("/api/v1/new/", apiHandler)
+	http.HandleFunc("/ui/", uiHandler)
 	log.Fatal(http.ListenAndServe(":"+config.Port, nil))
 }

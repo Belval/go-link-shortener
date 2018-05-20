@@ -2,5 +2,6 @@
     "DOMAIN": "[YOUR_DOMAIN]",
     "URL_LENGTH" : 5,
     "PORT" : "8080",
-    "DATABASE_PATH" : "/var/go-link-shortener/db.sqlite3"
+    "DATABASE_PATH" : "/var/go-link-shortener/db.sqlite3", 
+    "HTML_PATH" : "/var/go-link-shortener/html/index.html"
 }
