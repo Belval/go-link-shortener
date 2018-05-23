@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"html/template"
 	"log"
 	"net/http"
 
@@ -55,9 +54,7 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func uiHandler(w http.ResponseWriter, r *http.Request) {
-	p := &Empty{}
-	t, _ := template.ParseFiles(config.HTMLPath)
-	t.Execute(w, p)
+	http.ServeFile(w, r, config.HTMLPath)
 }
 
 func startWebServer() {
